@@ -10,6 +10,8 @@ use App\Filament\Resources\Properties\Tables\PropertiesTable;
 use App\Models\Property;
 use BackedEnum;
 use Filament\Resources\Resource;
+use Filament\Resources\Pages\CreateRecord;
+use Filament\Resources\Pages\EditRecord;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
@@ -29,7 +31,7 @@ class PropertyResource extends Resource
 
     public static function table(Table $table): Table
     {
-        return PropertiesTable::configure($table);
+        return PropertiesTable::table($table);
     }
 
     public static function getRelations(): array

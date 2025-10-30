@@ -3,8 +3,9 @@
 namespace App\Filament\Resources\Properties\Pages;
 
 use App\Filament\Resources\Properties\PropertyResource;
-use Filament\Actions\CreateAction;
+use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
+use Filament\Actions\CreateAction;
 
 class ListProperties extends ListRecords
 {
@@ -13,7 +14,11 @@ class ListProperties extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            CreateAction::make(),
+            CreateAction::make()
+                ->modalWidth('7xl')
+                ->slideOver()
+                ->modalSubmitActionLabel('Create Property')
+                ->modalCancelActionLabel('Cancel')
         ];
     }
 }

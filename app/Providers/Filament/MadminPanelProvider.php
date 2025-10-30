@@ -30,6 +30,7 @@ class MadminPanelProvider extends PanelProvider
             ->path('madmin')
             ->registration()
             ->login()
+            ->topNavigation()
             ->colors([
                 'primary' => Color::Amber,
             ])

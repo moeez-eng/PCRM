@@ -2,16 +2,20 @@
 
 namespace App\Filament\Resources\Properties\Tables;
 
+use Filament\Tables;
+use Filament\Tables\Table;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
+
+// ✅ These imports are REQUIRED in Filament v4.1+
+use Filament\Actions\EditAction;
+use Filament\Actions\DeleteAction;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
-use Filament\Actions\EditAction;
-use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Table;
-use Filament\Tables\Filters\SelectFilter;
 
 class PropertiesTable
 {
-    public static function configure(Table $table): Table
+    public static function table(Table $table): Table
     {
         return $table
             ->columns([
@@ -29,18 +33,28 @@ class PropertiesTable
                 TextColumn::make('created_at')->dateTime()->since()->label('Created'),
             ])
             ->filters([
-                SelectFilter::make('status')->label('Status')
+                SelectFilter::make('status')
+                    ->label('Status')
                     ->options([
                         'available' => 'Available',
                         'sold' => 'Sold',
                         'rented' => 'Rented',
-                    ])
-                    ->default('available'),
+                    ]),
             ])
-            ->recordActions([
-                EditAction::make(),
+            ->actions([
+                EditAction::make()
+                    ->label('Edit')
+                    ->icon('heroicon-o-pencil')
+                    ->modalWidth('7xl')
+                    ->slideOver()
+                    ->modalSubmitActionLabel('Update')
+                    ->modalCancelActionLabel('Cancel'),
+
+                DeleteAction::make()
+                    ->label('Delete')
+                    ->icon('heroicon-o-trash'),
             ])
-            ->toolbarActions([
+            ->bulkActions([
                 BulkActionGroup::make([
                     DeleteBulkAction::make(),
                 ]),
