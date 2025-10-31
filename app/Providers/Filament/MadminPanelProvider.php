@@ -28,7 +28,8 @@ class MadminPanelProvider extends PanelProvider
             ->default()
             ->id('madmin')
             ->path('madmin')
-            ->registration()
+            ->brandName('PCRM')
+            ->registration() 
             ->login()
             ->topNavigation()
             ->colors([

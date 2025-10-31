@@ -6,6 +6,7 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\DatePicker;
 use Filament\Schemas\Schema;
+use App\Models\Cities;
 
 
 class PropertyForm
@@ -39,12 +40,16 @@ class PropertyForm
                             'Sabzazar' => 'Sabzazar',
                             'Ethad Town' => 'Ethad Town',
                         ])->required()->columnSpan(1),
-                        Select::make('city')->options([
-                            'Lahore' => 'Lahore',
-                            'Islamabad' => 'Islamabad',
-                            'Karachi' => 'Karachi',
-                            'Peshawar' => 'Peshawar',
-                        ])->required()->columnSpan(1),
+                        Select::make('city')
+                            ->options(fn () => Cities::query()
+                                ->orderBy('name')
+                                ->pluck('name', 'name')
+                                ->toArray()
+                            )
+                            ->searchable()
+                            ->preload()
+                            ->required()
+                            ->columnSpan(1),
                         TextInput::make('price')->numeric()->required()->columnSpan(1),
                         Select::make('category')->options([
                             'corner' => 'Corner',

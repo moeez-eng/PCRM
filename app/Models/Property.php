@@ -26,6 +26,11 @@ class Property extends Model
         'status',
     ];
 
+    public function setCityAttribute($value): void
+    {
+        $this->attributes['city'] = ucwords(strtolower(trim((string) $value)));
+    }
+
     public function leases(): HasMany
     {
         return $this->hasMany(Lease::class);
